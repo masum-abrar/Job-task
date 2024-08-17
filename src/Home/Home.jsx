@@ -114,15 +114,15 @@ export const Home = () => {
                     value={brandFilter}
                     onChange={(e) => setBrandFilter(e.target.value)}>
                     <option value="">All Brands</option>
-                    <option value="EcoStyle">EcoStyle</option>
-                    <option value="DenimDream">DenimDream</option>
-                    <option value="FurFab">FurFab</option>
-                    <option value="GlamourGown">GlamourGown</option>
-                    <option value="ElegantEdge">ElegantEdge</option>
-                    <option value="RetroChic">RetroChic</option>
-                    <option value="UrbanEdge">UrbanEdge</option>
-                    <option value="UrbanClassic">UrbanClassic</option>
-                    <option value="WoolWear">WoolWear</option>
+                    <option value="EcoStyle">Samsung</option>
+                    <option value="DenimDream">Sony</option>
+                    <option value="FurFab">Apple</option>
+                    <option value="GlamourGown">Dell</option>
+                    <option value="ElegantEdge">Bose</option>
+                    <option value="RetroChic">Canon</option>
+                    <option value="UrbanEdge">Nikon</option>
+                    <option value="UrbanClassic">LG</option>
+                    <option value="WoolWear">Google</option>
                 </select>
 
                 <select
