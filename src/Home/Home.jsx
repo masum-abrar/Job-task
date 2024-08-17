@@ -13,7 +13,7 @@ export const Home = () => {
     const [priceFilter, setPriceFilter] = useState('');
     const [sortOption, setSortOption] = useState('');
 
-    // Pagination States
+    
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [itemsPerPage] = useState(10); // Set your items per page here
