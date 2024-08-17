@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
+
+import { Product } from './Product';
 import { Helmet } from 'react-helmet-async';
 
-
-
 export const Home = () => {
-    const [products, setproducts] = useState([]);
+    const [product, setproduct] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredproducts, setFilteredproducts] = useState([]);
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
     const [categoryFilter, setCategoryFilter] = useState('');
     const [brandFilter, setBrandFilter] = useState('');
     const [priceFilter, setPriceFilter] = useState('');
@@ -18,12 +18,35 @@ export const Home = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [itemsPerPage] = useState(10); // Set your items per page here
 
+    // Debounce the search term
     useEffect(() => {
-        // Fetch paginated productses data
-        fetch(`http://localhost:5000/products?page=${currentPage}&limit=${itemsPerPage}`)
+        const handler = setTimeout(() => {
+            setDebouncedSearchTerm(searchTerm);
+        }, 300); // 300ms delay (adjust as needed)
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchTerm]);
+
+    // Fetch products with search, filter, sort, and pagination
+    const fetchproducts = () => {
+        setLoading(true);
+
+        const queryParams = new URLSearchParams({
+            page: currentPage,
+            limit: itemsPerPage,
+            searchTerm: debouncedSearchTerm || '',
+            category: categoryFilter || '',
+            brand: brandFilter || '',
+            price: priceFilter || '',
+            sort: sortOption || ''
+        });
+
+        fetch(`http://localhost:5000/products?${queryParams.toString()}`)
             .then(res => res.json())
             .then(data => {
-                setproducts(data.productses);
+                setproduct(data.products);
                 setTotalPages(data.totalPages);
                 setLoading(false);
             })
@@ -31,48 +54,11 @@ export const Home = () => {
                 console.error('Error fetching data:', error);
                 setLoading(false);
             });
+    };
 
-    }, [currentPage]);
-
-    // Search, Filter, and Sort Logic
     useEffect(() => {
-        let updatedproductses = [...products];
-
-        // Search
-        if (searchTerm) {
-            updatedproductses = updatedproductses.filter(item => item.productName.toLowerCase().includes(searchTerm.toLowerCase()));
-        }
-
-        // Category Filter
-        if (categoryFilter) {
-            updatedproductses = updatedproductses.filter(item => item.category === categoryFilter);
-        }
-
-        // Brand Filter
-        if (brandFilter) {
-            updatedproductses = updatedproductses.filter(item => item.brandName === brandFilter);
-        }
-
-        // Price Filter
-        if (priceFilter === 'under50') {
-            updatedproductses = updatedproductses.filter(item => item.price < 50);
-        } else if (priceFilter === '50To100') {
-            updatedproductses = updatedproductses.filter(item => item.price >= 50 && item.price <= 100);
-        } else if (priceFilter === 'over100') {
-            updatedproductses = updatedproductses.filter(item => item.price > 100);
-        }
-
-        // Sorting by date & price
-        if (sortOption === 'priceLowToHigh') {
-            updatedproductses = updatedproductses.sort((a, b) => a.price - b.price);
-        } else if (sortOption === 'priceHighToLow') {
-            updatedproductses = updatedproductses.sort((a, b) => b.price - a.price);
-        } else if (sortOption === 'newestFirst') {
-            updatedproductses = updatedproductses.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        }
-
-        setFilteredproducts(updatedproductses);
-    }, [searchTerm, categoryFilter, brandFilter, priceFilter, sortOption, products]);
+        fetchproducts();
+    }, [currentPage, debouncedSearchTerm, categoryFilter, brandFilter, priceFilter, sortOption]);
 
     const handlePreviousPage = () => {
         if (currentPage > 1) setCurrentPage(currentPage - 1);
@@ -89,15 +75,12 @@ export const Home = () => {
     return (
         <div>
             <Helmet>
-                <title>
-                    Woman's products | Home
-                </title>
+                <title>Bacis Store | Home</title>
                 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
             </Helmet>
-           
-           
-           
-            <h2 className="text-4xl text-center my-12 font-bold text-sky-800">All productses</h2>
+
+            
+            <h2 className="text-4xl text-center my-12 font-bold text-sky-800">All products</h2>
 
             {/* Search Bar */}
             <div className="flex justify-center mb-6">
@@ -163,10 +146,10 @@ export const Home = () => {
                 </select>
             </div>
 
-            {/* Displaying productses */}
+            {/* Displaying products */}
             <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-y-5 mx-24 lg:mx-8 md:mx-12 sm:mx-24 ml-12 gap-12">
                 {
-                    filteredproducts.map(products => <products key={products._id} products={products}></products>)
+                    product?.map(product => <Product key={product._id} product={product}></Product>)
                 }
             </div>
 
@@ -189,4 +172,3 @@ export const Home = () => {
         </div>
     );
 };
-
