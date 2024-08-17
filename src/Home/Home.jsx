@@ -16,7 +16,7 @@ export const Home = () => {
     
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [itemsPerPage] = useState(10); // Set your items per page here
+    const [itemsPerPage] = useState(10); 
 
     // Debounce the search term
     useEffect(() => {
