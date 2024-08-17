@@ -22,7 +22,7 @@ export const Home = () => {
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedSearchTerm(searchTerm);
-        }, 300); // 300ms delay (adjust as needed)
+        }, 300); 
 
         return () => {
             clearTimeout(handler);
