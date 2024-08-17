@@ -18,7 +18,7 @@ export const Home = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [itemsPerPage] = useState(10); 
 
-    // Debounce the search term
+    
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedSearchTerm(searchTerm);
@@ -143,7 +143,7 @@ export const Home = () => {
                 </select>
             </div>
 
-            {/* Displaying products */}
+        
             <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-y-5 mx-24 lg:mx-8 md:mx-12 sm:mx-24 ml-12 gap-12">
                 {
                     product?.map(product => <Product key={product._id} product={product}></Product>)
