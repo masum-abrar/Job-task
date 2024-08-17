@@ -29,7 +29,7 @@ export const Home = () => {
         };
     }, [searchTerm]);
 
-    // Fetch products with search, filter, sort, and pagination
+  
     const fetchproducts = () => {
         setLoading(true);
 
@@ -43,7 +43,7 @@ export const Home = () => {
             sort: sortOption || ''
         });
 
-        fetch(`http://localhost:5000/products?${queryParams.toString()}`)
+        fetch(`https://job-task-server-five-kappa.vercel.app/products?${queryParams.toString()}`)
             .then(res => res.json())
             .then(data => {
                 setproduct(data.products);
@@ -100,13 +100,10 @@ export const Home = () => {
                     value={categoryFilter}
                     onChange={(e) => setCategoryFilter(e.target.value)}>
                     <option value="">All Categories</option>
-                    <option value="Dresses">Dresses</option>
-                    <option value="Bottoms">Bottoms</option>
-                    <option value="Coats">Coats</option>
-                    <option value="Accessories">Accessories</option>
-                    <option value="Jackets">Jackets</option>
-                    <option value="Tops">Tops</option>
-                    <option value="Sweaters">Sweaters</option>
+                    <option value="Smartphone">Smartphone</option>
+                    <option value="Television">Television</option>
+                    <option value="Laptop">Laptop</option>
+                   
                 </select>
 
                 <select
