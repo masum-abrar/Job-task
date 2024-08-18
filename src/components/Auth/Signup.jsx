@@ -69,7 +69,7 @@ const Signup = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
             <Helmet>
-                <title>Woman's products | Registration</title>
+                <title>Basic Store | Registration</title>
             </Helmet>
 
           

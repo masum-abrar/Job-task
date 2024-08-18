@@ -18,6 +18,13 @@ const Navbar = () => {
                 <Link to='/'><p className="btn btn-ghost text-xl">Basic Store</p></Link>
             </div>
             <div className="navbar-end gap-5">
+                <ul className='flex gap-7 items-center justify-around'>
+                    <li>about</li>
+                    <li>blog</li>
+                    <li>contact us</li>
+                </ul>
+
+
                 {user ?
                     <>
                     <p>{user.email}</p>

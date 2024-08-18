@@ -112,7 +112,7 @@ const Login = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
             <Helmet>
-                <title>Woman's products | LogIn</title>
+                <title>Basic Store | LogIn</title>
             </Helmet>
 
             <h2 className="text-3xl sm:text-4xl text-center font-bold text-sky-800 py-10">Login Now!</h2>
